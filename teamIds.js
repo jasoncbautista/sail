@@ -159,13 +159,15 @@ var getTeamID = function(league, teamName, colors){
 
 	
       var query = league + " " + teamName;
-      console.log("query", query);
 	$.get("https://sqor.com/api/search?q=" + query, function(data){
+
+            console.log("query", query);
 		// Loop and extract team
 		var teamsInQuery = [];
 		_.each(data.results, function(item){
-                  if(item.type === "Team"){
+                  if(item.type === "Team" && item.name === "teamName"){
                         teamsInQuery.push(item);
+
                   }
 
 
@@ -179,7 +181,7 @@ var getTeamID = function(league, teamName, colors){
 			console.log("-----: ");
 		} 
 
-		if (teamsInQuery.length > 0 ){
+		if (teamsInQuery.length > 1 ){
 			console.log("TOO MANY TEAMS?");
 						console.log(teamName);
 			console.log(league);
@@ -188,7 +190,7 @@ var getTeamID = function(league, teamName, colors){
 
 		}
 		if (teamsInQuery.length === 1){
-			teamsProcessed[league].append({"team_name": teamName,  'colors': colors,  rawData: teamsInQuery[0], 'id': teamsInQuery[0].id })
+			teamsProcessed[league].push({"team_name": teamName,  'colors': colors,  rawData: teamsInQuery[0], 'id': teamsInQuery[0].id })
 		}
 
 	});
@@ -197,7 +199,7 @@ var getTeamID = function(league, teamName, colors){
 
 
 
-_.each(teams, function(league, teams){
+_.each(teams, function( teams, league){
       _.each(teams, function(colors, teamName){
             getTeamID(league, teamName, colors);
 
