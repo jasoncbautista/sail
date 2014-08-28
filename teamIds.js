@@ -154,7 +154,7 @@ var teams = {
 
 
 
-var teamsProcessed = { "MLS": [], "NFL": [], "NBA": []};
+var teamsProcessed = { "MLS": [], "MLB":[], "NHL":[],  "NFL": [], "NBA": []};
 var getTeamID = function(league, teamName, colors){
 
 	
@@ -165,7 +165,7 @@ var getTeamID = function(league, teamName, colors){
 		// Loop and extract team
 		var teamsInQuery = [];
 		_.each(data.results, function(item){
-                  if(item.type === "Team" && item.name === "teamName"){
+                  if(item.type === "Team" ){
                         teamsInQuery.push(item);
 
                   }
@@ -187,6 +187,8 @@ var getTeamID = function(league, teamName, colors){
 			console.log(league);
 	
 			console.log("----");
+                  
+                  teamsProcessed[league].push({"team_name": teamName,  'colors': colors,  rawData: teamsInQuery[0], 'id': teamsInQuery[0].id })
 
 		}
 		if (teamsInQuery.length === 1){
