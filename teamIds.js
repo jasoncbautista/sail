@@ -221,12 +221,19 @@ _.each(teamsProcessedIDs, function(obj, id){
 
 $("body").empty();
 
+var mainCount = 0;
+
 var   table =  $('<table cellpadding="10">').appendTo("body");
 _.each(teamsProcessed, function(teams, league){
+      var leagueCount = 0;
       _.each(teams, function(obj, id){ 
+            leagueCount++;
+            mainCount++;
 
             var el = $("<tr></tr>");
             $(table).append(el);
+            el.append("<td> &thinsp;" + mainCount+ "</td>");
+            el.append("<td> &thinsp;" + leagueCount+ "</td>");
             el.append("<td> &thinsp;" + obj.id+ "</td>");
             el.append("<td> &thinsp;" + league+ "</td>");
             el.append("<td> &thinsp;" + obj.team_name + "</td>");
@@ -235,6 +242,7 @@ _.each(teamsProcessed, function(teams, league){
 } );
 
 
+$("table td").css("padding-left", "50px");
 
 Object.keys(teams["NBA"]).length + Object.keys(teams["NFL"]).length + Object.keys(teams["MLB"]).length + Object.keys(teams["NHL"]).length + Object.keys(teams["MLS"]).length 
 
