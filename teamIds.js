@@ -209,10 +209,29 @@ _.each(teams, function( teams, league){
 // Run after done 
 $("body").empty();
 
-_.each(teamsProcessed, function(obj, id){
+_.each(teamsProcessedIDs, function(obj, id){
       var  str = str = " | " + obj.team_name + "| " + obj.rawData.name;
       var el = $("<div>" + str + "</div>");
       $("body").append(el);
+} );
+
+
+
+// DO THIS ONLY FOR CLEARING:
+
+$("body").empty();
+
+var   table =  $('<table cellpadding="10">').appendTo("body");
+_.each(teamsProcessed, function(teams, league){
+      _.each(teams, function(obj, id){ 
+
+            var el = $("<tr></tr>");
+            $(table).append(el);
+            el.append("<td> &thinsp;" + obj.id+ "</td>");
+            el.append("<td> &thinsp;" + league+ "</td>");
+            el.append("<td> &thinsp;" + obj.team_name + "</td>");
+            el.append("<td>" + obj.rawData.name+ "</td>");
+      });
 } );
 
 
