@@ -155,26 +155,23 @@ var teams = {
 
 
 var teamsProcessed = { "MLS": [], "MLB":[], "NHL":[],  "NFL": [], "NBA": []};
+var teamsProcessedIDs = {};
 var getTeamID = function(league, teamName, colors){
 
 	
       var query = league + " " + teamName;
 	$.get("https://sqor.com/api/search?q=" + query, function(data){
 
-            console.log("query", query);
 		// Loop and extract team
 		var teamsInQuery = [];
 		_.each(data.results, function(item){
                   if(item.type === "Team" ){
                         teamsInQuery.push(item);
-
                   }
-
-
 		});
 
-
 		if (teamsInQuery.length === 0){
+                  console.log("query", query);
 			console.log("ERROR: ");
 			console.log(teamName);
 			console.log(league);
@@ -182,17 +179,16 @@ var getTeamID = function(league, teamName, colors){
 		} 
 
 		if (teamsInQuery.length > 1 ){
-			console.log("TOO MANY TEAMS?");
-						console.log(teamName);
-			console.log(league);
-	
-			console.log("----");
-                  
-                  teamsProcessed[league].push({"team_name": teamName,  'colors': colors,  rawData: teamsInQuery[0], 'id': teamsInQuery[0].id })
-
+			//console.log("TOO MANY TEAMS?");
+						//console.log(teamName);
+			//console.log(league);
+			//console.log("----");
+                  teamsProcessed[league].push({"team_name": teamName,  'colors': colors,  rawData: teamsInQuery[0], 'id': teamsInQuery[0].id });
+                  teamsProcessedIDs [teamsInQuery[0].id] = {"team_name": teamName,  'colors': colors,  rawData: teamsInQuery[0], 'id': teamsInQuery[0].id };
 		}
 		if (teamsInQuery.length === 1){
-			teamsProcessed[league].push({"team_name": teamName,  'colors': colors,  rawData: teamsInQuery[0], 'id': teamsInQuery[0].id })
+                  teamsProcessed[league].push({"team_name": teamName,  'colors': colors,  rawData: teamsInQuery[0], 'id': teamsInQuery[0].id });
+                  teamsProcessedIDs [teamsInQuery[0].id] = {"team_name": teamName,  'colors': colors,  rawData: teamsInQuery[0], 'id': teamsInQuery[0].id };
 		}
 
 	});
@@ -208,3 +204,19 @@ _.each(teams, function( teams, league){
       });
 
 });
+
+
+// Run after done 
+$("body").empty();
+
+_.each(teamsProcessed, function(obj, id){
+      var  str = str = " | " + obj.team_name + "| " + obj.rawData.name;
+      var el = $("<div>" + str + "</div>");
+      $("body").append(el);
+} );
+
+
+
+Object.keys(teams["NBA"]).length + Object.keys(teams["NFL"]).length + Object.keys(teams["MLB"]).length + Object.keys(teams["NHL"]).length + Object.keys(teams["MLS"]).length 
+
+
