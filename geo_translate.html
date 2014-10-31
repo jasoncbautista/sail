@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Set a maps position with geocoder.</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+<div id='map'></div>
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiamFzb25zcW9yIiwiYSI6IlAtV2RIdEkifQ.zQTH4h_NIg9ECpNBNHd6Xg';
+var geocoder = L.mapbox.geocoder('mapbox.places-v1'),
+    map = L.mapbox.map('map', 'examples.map-h67hf2ic');
+
+geocoder.query('Chester, NJ', showMap);
+
+function showMap(err, data) {
+    debugger;
+    // The geocoder can return an area, like a city, or a
+    // point, like an address. Here we handle both cases,
+    // by fitting the map bounds to an area or zooming to a point.
+    if (data.lbounds) {
+        map.fitBounds(data.lbounds);
+    } else if (data.latlng) {
+        map.setView([data.latlng[0], data.latlng[1]], 13);
+    }
+}
+</script>
+</body>
+</html>
