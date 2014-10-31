@@ -17,10 +17,9 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiamFzb25zcW9yIiwiYSI6IlAtV2RIdEkifQ.zQTH4h_NIg
 var geocoder = L.mapbox.geocoder('mapbox.places-v1'),
     map = L.mapbox.map('map', 'examples.map-h67hf2ic');
 
-geocoder.query('Chester, NJ', showMap);
+geocoder.query('1405 Park Blvd, San Diego, CA 92101', showMap);
 
 function showMap(err, data) {
-    debugger;
     // The geocoder can return an area, like a city, or a
     // point, like an address. Here we handle both cases,
     // by fitting the map bounds to an area or zooming to a point.
