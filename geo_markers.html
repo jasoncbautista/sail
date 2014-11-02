@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Show tooltips on hover</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+
+
+<div id='map'></div>
+
+<script>
+
+L.mapbox.accessToken = 'pk.eyJ1IjoiamFzb25zcW9yIiwiYSI6IlAtV2RIdEkifQ.zQTH4h_NIg9ECpNBNHd6Xg';
+var map = L.mapbox.map('map', 'examples.map-20v6611k')
+  .setView([39.12367, -76.81229], 9);
+
+var myLayer = L.mapbox.featureLayer().addTo(map);
+
+var geojson = {
+    type: 'FeatureCollection',
+    features: [{
+        type: 'Feature',
+        properties: {
+            title: 'Washington, D.C.',
+            'marker-color': '#f86767',
+            'marker-size': 'large',
+            'marker-symbol': 'star',
+            url: 'http://en.wikipedia.org/wiki/Washington,_D.C.'
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-77.03201, 38.90065]
+        }
+    },
+    {
+        type: 'Feature',
+        properties: {
+            title: 'Baltimore, MD',
+            'marker-color': '#7ec9b1',
+            'marker-size': 'large',
+            'marker-symbol': 'star',
+            url: 'http://en.wikipedia.org/wiki/Baltimore'
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-76.60767, 39.28755]
+        }
+    }]
+};
+
+myLayer.setGeoJSON(geojson);
+myLayer.on('mouseover', function(e) {
+    e.layer.openPopup();
+});
+myLayer.on('mouseout', function(e) {
+    e.layer.closePopup();
+});
+</script>
+
+
+</body>
+</html>
