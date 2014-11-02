@@ -2,6 +2,7 @@
 <head>
 <meta charset=utf-8 />
 <title>Set a maps position with geocoder.</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
@@ -17,20 +18,37 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiamFzb25zcW9yIiwiYSI6IlAtV2RIdEkifQ.zQTH4h_NIg
 var geocoder = L.mapbox.geocoder('mapbox.places-v1'),
     map = L.mapbox.map('map', 'examples.map-h67hf2ic');
 
-geocoder.query('1405 Park Blvd, San Diego, CA 92101', showMap);
 
-function showMap(err, data) {
-    // The geocoder can return an area, like a city, or a
-    // point, like an address. Here we handle both cases,
-    // by fitting the map bounds to an area or zooming to a point.
-    if (data.lbounds) {
-        map.fitBounds(data.lbounds);
-    } else if (data.latlng) {
 
-        map.setView([data.latlng[0], data.latlng[1]], 13);
-        L.marker([data.latlng[0], data.latlng[1]]).addTo(map);
+$(function(){
+
+        console.log('loaded');
+
+
+        $.get("players.json", function(data){
+                console.log(data);
+
+
+        });
+
+    geocoder.query('1405 Park Blvd, San Diego, CA 92101', showMap);
+
+    function showMap(err, data) {
+        // The geocoder can return an area, like a city, or a
+        // point, like an address. Here we handle both cases,
+        // by fitting the map bounds to an area or zooming to a point.
+        if (data.lbounds) {
+            map.fitBounds(data.lbounds);
+        } else if (data.latlng) {
+
+            map.setView([data.latlng[0], data.latlng[1]], 13);
+            L.marker([data.latlng[0], data.latlng[1]]).addTo(map);
+        }
     }
-}
+
+
+});
+
 </script>
 </body>
 </html>
