@@ -29,6 +29,7 @@ var geojson = {
     features: [{
         type: 'Feature',
         properties: {
+            "__id__": "888",
             title: 'Washington, D.C.',
             'marker-color': '#f86767',
             'marker-size': 'large',
@@ -43,11 +44,12 @@ var geojson = {
     {
         type: 'Feature',
         properties: {
-            title: 'Baltimore, MD',
+            "__id__": "333",
+            title: 'B__id__imore, MD',
             'marker-color': '#7ec9b1',
             'marker-size': 'large',
             'marker-symbol': 'star',
-            url: 'http://en.wikipedia.org/wiki/Baltimore'
+            url: 'http://en.wikipedia.org/wiki/B__id__imore'
         },
         geometry: {
             type: 'Point',
@@ -58,6 +60,7 @@ var geojson = {
 
 myLayer.setGeoJSON(geojson);
 myLayer.on('mouseover', function(e) {
+    console.log(e.layer.feature.properties.__id__);
     e.layer.openPopup();
 });
 myLayer.on('mouseout', function(e) {
