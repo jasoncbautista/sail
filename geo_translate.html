@@ -76,6 +76,21 @@ $(function(){
                         //map.setView([data.latlng[0], data.latlng[1]], 13);
                         var myLayer = L.marker([data.latlng[0], data.latlng[1]],
                             {
+
+
+
+        type: 'Feature',
+        properties: {
+            "__id__": player.id,
+            title: 'Washington, D.C.',
+            'marker-color': '#f86767',
+            'marker-size': 'large',
+            'marker-symbol': 'star',
+            url: 'http://en.wikipedia.org/wiki/Washington,_D.C.'
+        },
+
+
+
         icon: L.divIcon({
             // Specify a class name we can refer to in CSS.
             className: 'count-icon',
@@ -93,6 +108,7 @@ $(function(){
 
 
                         myLayer.on('mouseover', function(e) {
+                            console.log(e.target.options.properties.__id__);
                             console.log(e);
                         });
 
