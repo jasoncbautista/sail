@@ -42,6 +42,8 @@ var geocoder = L.mapbox.geocoder('mapbox.places-v1'),
     .setView([0, 0], 2);
 
 
+
+
 $(function(){
 
         console.log('loaded');
@@ -72,7 +74,7 @@ $(function(){
                         //console.log(player);
                         //console.log(data.latlng);
                         //map.setView([data.latlng[0], data.latlng[1]], 13);
-                        L.marker([data.latlng[0], data.latlng[1]],
+                        var myLayer = L.marker([data.latlng[0], data.latlng[1]],
                             {
         icon: L.divIcon({
             // Specify a class name we can refer to in CSS.
@@ -88,6 +90,13 @@ $(function(){
                             
                             
                             ).addTo(map);
+
+
+                        myLayer.on('mouseover', function(e) {
+                            console.log(e);
+                        });
+
+
                         }
                     });
 
